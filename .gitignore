@@ -1,0 +1,6 @@
+/PhishShield/__pycache__/
+detector/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+PhishShield/db.sqlite3
