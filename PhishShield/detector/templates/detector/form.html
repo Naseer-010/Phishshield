@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishShield</title>
+    <link rel="icon" href="images\icon.jpg" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-DQvkBjpPgn7RC31MCQoOeC9TI2kdqa4+BSgNMNj8v77fdC77Kj5zpWFTJaaAoMbC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.4/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="Stylesheet" href="style.css">
+
+    <script src="app.js"></script>
+</head>
+<body>
+
+
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><img class="logo" src="images\icon.jpg"/></a>
+      <a class="navbar-brand" href="#" style="color: #00cc99; font-weight: bold; ">PhishShield</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="D:\Hackathons\Hacknovate\index.html">Home</a>
+          </li>
+
+         
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              About Us
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="D:\Hackathons\Hacknovate\features.html">Features</a></li>
+              
+              
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="D:\Hackathons\Hacknovate\form.html">Contact Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+    <section class="contact-us">
+        <h2>Contact Us</h2>
+        <form class="contact-form" action="D:\Hackathons\Hacknovate\index.html" onsubmit="handleContactForm(event)" >
+          <input type="text" class="form-control" placeholder="Your Name" id="contactName" required>
+          <input type="email" class="form-control" placeholder="Your Email" id="contactEmail" required>
+          <textarea class="form-control" rows="5" placeholder="Your Message" id="contactMessage" required></textarea>
+          <button type="submit" class="btn btn-primary" >Send Message</button>
+        </form>
+      </section>
+      
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.querySelector(".contact-form");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent actual form submission
+
+      const name = document.getElementById("contactName").value;
+      const email = document.getElementById("contactEmail").value;
+      const message = document.getElementById("contactMessage").value;
+
+      alert("Name: " + name + "\nEmail: " + email + "\nMessage: " + message + "\n\nYour message has been sent!");
+
+      // You can also clear the form after submission
+      form.reset();
+    });
+  });
+</script>
+
+</html>
