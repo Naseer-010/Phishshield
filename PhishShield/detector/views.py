@@ -11,7 +11,7 @@ def home(request):
             result = scan_url(url)
             percentage = result.get('threat_percentage', 0)
             message = result.get('message', 'No data available')
-            return render(request, 'detector/home.html', {'percentage': percentage, 'message': message})
+            return render(request, 'detector/index.html', {'percentage': percentage, 'message': message})
 
     return render(request, 'detector/index.html')
 

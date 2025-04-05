@@ -1,44 +1,46 @@
 import requests
-
-# === VirusTotal API Endpoint ===
-VT_API_URL = "https://www.virustotal.com/api/v3/urls"
+import time
 
 def scan_url(url):
-    """
-    Sends a URL to VirusTotal for scanning and calculates the threat percentage.
-    """
     headers = {"x-apikey": '6099a61388b05f2f51d9c60777096f91995f2c332146b3fae4905fb68059e255'}
-    
-    
-    response = requests.post(VT_API_URL, headers=headers, data={"url": url})
-    
+
+    # Submit the URL for scanning
+    response = requests.post("https://www.virustotal.com/api/v3/urls", headers=headers, data={"url": url})
     if response.status_code != 200:
-        return {"error": "Failed to submit URL to VirusTotal"}
-    
-    # Extract analysis ID
-    analysis_id = response.json().get("data", {}).get("id")
-    if not analysis_id:
-        return {"error": "Invalid response from VirusTotal"}
+        return {"error": "Failed to submit URL"}
 
-    report_url = f"https://www.virustotal.com/api/v3/analyses/{analysis_id}"
-    report_response = requests.get(report_url, headers=headers)
-    
-    if report_response.status_code != 200:
-        return {"error": "Failed to retrieve VirusTotal report"}
+    analysis_id = response.json()["data"]["id"]
 
-    report_data = report_response.json()
-    
-    results = report_data["data"]["attributes"]["results"]
+    # Poll until scan is complete
+    for _ in range(10):  # Retry max 10 times (10 * 2s = 20s max)
+        report_response = requests.get(f"https://www.virustotal.com/api/v3/analyses/{analysis_id}", headers=headers)
+        if report_response.status_code != 200:
+            return {"error": "Failed to get report"}
+        
+        data = report_response.json()
+        status = data["data"]["attributes"]["status"]
+        if status == "completed":
+            break
+        time.sleep(2)
+    else:
+        return {
+            "url": url,
+            "total_engines": 0,
+            "positives": 0,
+            "threat_percentage": None,
+            "message": "Scan results are not available yet. Please check back later."
+        }
+
+    results = data["data"]["attributes"].get("results", {})
     total_engines = len(results)
-    positives = sum(1 for engine in results.values() if engine["category"] == "malicious")
+    positives = sum(1 for r in results.values() if r.get("category") == "malicious")
 
-    threat_percentage = (positives / total_engines) * 100  
+    threat_percentage = (positives / total_engines * 100) if total_engines > 0 else 0
 
     return {
         "url": url,
         "total_engines": total_engines,
         "positives": positives,
         "threat_percentage": round(threat_percentage, 2),
-        "message": f"{threat_percentage:.2f}% of security vendors marked this URL as malicious."
+        "message": f"{threat_percentage:.2f}% of engines marked this URL as malicious."
     }
-

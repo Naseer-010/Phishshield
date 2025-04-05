@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhishShield</title>
+    <link rel="stylesheet" href="{% static 'detector/style.css' %}">
+</head>
+<body>
+    <header id="site-header">
+        <div id="site-header_container">
+            <!-- Logo -->
+            <a id="site-header_logo" href="{% url 'home' %}">
+                <img src="{% static 'detector/images/logo.png' %}" alt="PhishShield Logo" style="height: 40px;">
+            </a>
+    
+            <!-- Navigation Links -->
+            <nav id="site-header_nav">
+                <ul id="site-header_nav-list">
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">About Team</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">View more +</a></li>
+                </ul>
+            </nav>
+    
+            <!-- Right-side Links -->
+            <div>
+                <a href="#" class="nav-login">Login ↗</a>
+                <a href="#" class="nav-btn">Sign up</a>
+            </div>
+        </div>
+    </header>
+    <div class="slogan">
+        <h1>Copy. Paste. Prevent</h1>
+    </div>
+    
+    <section class="home">
+        <div class="container">
+            <form method="POST" action="{% url 'home' %}">
+                {% csrf_token %}
+                <div class="input-wrapper">
+                    <input type="text" name="url" placeholder="Analyze the URL" required>
+                    <button type="submit">✔</button> <!-- Icon or text -->
+                </div>
+            </form>
+        </div>
+        <div class="gauge">
+			<ul class="meter">
+				<li class="low"></li>
+				<li class="normal"></li>
+				<li class="high"></li>
+			</ul>
+
+			<div class="dial">
+					<div class="inner">
+						<div class="arrow">
+						</div>
+					</div>			
+			</div>
+
+			<div class="value">
+				{{percentage}}
+			</div>
+
+		</div> 
+    </section>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="{% static 'detector/scripts.js'%}"></script>
+</html>
