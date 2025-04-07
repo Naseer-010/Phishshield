@@ -120,7 +120,7 @@ header h1 {
     background: linear-gradient(90deg, #64dcfc, #66a6ff, #ffffff);
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    margin-top: 7rem;
+    margin-top: 5rem;
     margin-bottom: .5rem;
 }
 
