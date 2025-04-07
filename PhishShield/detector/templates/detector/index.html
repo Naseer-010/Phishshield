@@ -47,24 +47,26 @@
                 </div>
             </form>
         </div>
-        <div class="gauge">
-			<ul class="meter">
-				<li class="low"></li>
-				<li class="normal"></li>
-				<li class="high"></li>
-			</ul>
+        {% if url %}
+            <div class="result">
+                <div class="gauge">
+                    <ul class="meter">
+                        <li class="low"></li>
+                        <li class="normal"></li>
+                        <li class="high"></li>
+                    </ul>
 
-			<div class="dial">
-					<div class="inner">
-						<div class="arrow">
-						</div>
-					</div>			
-			</div>
+                    <div class="dial">
+                        <div class="inner">
+                            <div class="arrow">
+                            </div>
+                        </div>			
+                    </div>
 
-			<div class="value">
-				{{percentage}}
-			</div>
-
+			        <div class="value">
+				        {{percentage}}
+			        </div> 
+            {% endif %}
 		</div> 
     </section>
 </body>
